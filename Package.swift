@@ -12,10 +12,10 @@ let package = Package(
             targets: ["Swift-NIO-LIFX-Impl"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-log.git", from: "1.0.0"),
-        .package(name: "swift-nio-lifx", url: "https://github.com/PSchmiedmayer/Swift-NIO-LIFX.git", .branch("develop"))
         // Dependencies declare other packages that this package depends on.
-        // .package(url: /* package url */, from: "1.0.0"),
+        .package(url: "https://github.com/apple/swift-log.git", from: "1.0.0"),
+        .package(url: "https://github.com/apple/swift-argument-parser", from: "0.4.0"),
+        .package(name: "swift-nio-lifx", url: "https://github.com/PSchmiedmayer/Swift-NIO-LIFX.git", .branch("develop"))
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -24,7 +24,8 @@ let package = Package(
             name: "Swift-NIO-LIFX-Impl",
             dependencies: [
                 .product(name: "NIOLIFX", package: "swift-nio-lifx"),
-                .product(name: "Logging", package: "swift-log")
+                .product(name: "Logging", package: "swift-log"),
+                .product(name: "ArgumentParser", package: "swift-argument-parser")
             ]
         )
     ]
