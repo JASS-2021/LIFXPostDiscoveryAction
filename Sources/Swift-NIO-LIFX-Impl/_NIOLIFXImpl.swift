@@ -9,6 +9,8 @@ struct _NIOLIFXImpl {
     var fileName: String
     /// The path the file is saved at.
     var filePath: URL
+    /// The network interface for the discovery
+    var specifiedNetworkInterface: String
     /// A local logger instance.
     private let logger = Logger(label: "swift.nio.lifx")
 
@@ -31,7 +33,7 @@ struct _NIOLIFXImpl {
     private func findNetworkInterfaces() throws -> NIONetworkDevice {
         let interfaces = try System.enumerateDevices()
         for interface in interfaces {
-            if case .v4 = interface.address, interface.name == "en0" {
+            if case .v4 = interface.address, interface.name == specifiedNetworkInterface {
                 return interface
             }
         }

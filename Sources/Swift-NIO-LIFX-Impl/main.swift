@@ -8,8 +8,13 @@ struct NIOLIFXImpl: ParsableCommand {
     @Option(help: "The file name")
     var fileName: String = "lifx_devices"
     
+    @Option(help: "On this network interface the discovery is run.")
+    var networkInterface: String = "wlan0"
+    
     func run() throws {
-        let impl = _NIOLIFXImpl(fileName: fileName, filePath: URL(fileURLWithPath: filePath))
+        let impl = _NIOLIFXImpl(fileName: fileName,
+                                filePath: URL(fileURLWithPath: filePath),
+                                specifiedNetworkInterface: networkInterface)
         try impl.run()
     }
 }
