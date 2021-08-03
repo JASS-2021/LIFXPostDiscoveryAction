@@ -1,8 +1,9 @@
+import Foundation
 import NIOLIFX
 import NIO
 
-/// A codable twin of NIOLIFXs `Device.Location`.
-public struct CodableLocation: Codable {
+/// A codable twin of NIOLIFXs `Device.Group`.
+public struct CodableGroup: Codable {
     public let id: String
     public let label: String
     public let updatedAt: UInt64
@@ -21,10 +22,10 @@ public struct CodableLocation: Codable {
         self.updatedAt = try values.decode(UInt64.self, forKey: .updatedAt)
     }
     
-    init(from location: Device.Location) {
-        self.id = location.description.replacingOccurrences(of: "\0", with: "")
-        self.label = location.label.replacingOccurrences(of: "\0", with: "")
-        self.updatedAt = location.updatedAt
+    init(from group: Device.Group) {
+        self.id = group.description.replacingOccurrences(of: "\0", with: "")
+        self.label = group.label.replacingOccurrences(of: "\0", with: "")
+        self.updatedAt = group.updatedAt
     }
     
     public func encode(to encoder: Encoder) throws {
@@ -32,6 +33,5 @@ public struct CodableLocation: Codable {
         try values.encode(id, forKey: .id)
         try values.encode(label, forKey: .label)
         try values.encode(updatedAt, forKey: .updatedAt)
-        
     }
 }

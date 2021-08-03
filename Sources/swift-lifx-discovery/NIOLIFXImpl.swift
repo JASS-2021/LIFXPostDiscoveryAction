@@ -1,39 +1,45 @@
 import Foundation
+import ArgumentParser
+import Logging
 import NIOLIFX
 import NIO
-import Logging
 
-/// An Implementation of NIOLIFX that persists the basic information of the found `Device`s into a JSON.
-struct _NIOLIFXImpl {
-    /// The filename of the .json file.
-    var fileName: String
-    /// The path the file is saved at.
-    var filePath: URL
-    /// The network interface for the discovery
-    var specifiedNetworkInterface: String
-    /// A local logger instance.
-    private let logger = Logger(label: "swift.nio.lifx")
+@main
+struct NIOLIFXImpl: ParsableCommand {
+    @Argument(help: "The directory the file should be saved at")
+    var filePath: String = CommandLine.arguments[0]
+    
+    @Option(help: "The file name")
+    var fileName: String = "lifx_devices"
+    
+    @Option(help: "On this network interface the discovery is run.")
+    var networkInterface: String = "wlan0"
 
     /// Runs the `NIOLIFX` device discovery and persists found devices.
     func run() throws {
+        print(filePath)
+        let logger = Logger(label: "swift.nio.lifx")
+        let fileUrl = URL(fileURLWithPath: filePath)
         let networkInterface = try findNetworkInterfaces()
         let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+        
         let deviceManager = try LIFXDeviceManager(using: networkInterface, on: group, logLevel: .info)
         try deviceManager.discoverDevices().wait()
         
-        let codableDevices = deviceManager.devices.map {
-            CodableDevice($0)
+        let codableDevices = try deviceManager.devices.map {
+            try CodableDevice($0)
         }
-        let filePath = filePath.appendingPathComponent(fileName)
+        let fileLocation = fileUrl.appendingPathComponent(fileName)
         let data = try JSONEncoder().encode(codableDevices)
-        try data.write(to: filePath)
-        logger.info("Wrote results to file: \(filePath)")
+        try data.write(to: fileLocation)
+        logger.info("Wrote results to file: \(fileLocation.path)")
     }
+    
     /// Returns the ethernet/wifi network interface of the executing device.
     private func findNetworkInterfaces() throws -> NIONetworkDevice {
         let interfaces = try System.enumerateDevices()
         for interface in interfaces {
-            if case .v4 = interface.address, interface.name == specifiedNetworkInterface {
+            if case .v4 = interface.address, interface.name == networkInterface {
                 return interface
             }
         }
@@ -43,5 +49,4 @@ struct _NIOLIFXImpl {
             """
         )
     }
-    
 }
