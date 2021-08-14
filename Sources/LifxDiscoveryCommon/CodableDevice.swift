@@ -7,7 +7,7 @@ public struct CodableDevice: Codable {
     let location: CodableLocation
     let group: CodableGroup
     
-    init(_ device: Device) throws {
+    public init(_ device: Device) throws {
         self.address = device.address
         if let location = device.location.wrappedValue,
            let group = device.group.wrappedValue {

@@ -22,7 +22,7 @@ public struct CodableGroup: Codable {
         self.updatedAt = try values.decode(UInt64.self, forKey: .updatedAt)
     }
     
-    init(from group: Device.Group) {
+    public init(from group: Device.Group) {
         self.id = group.description.replacingOccurrences(of: "\0", with: "")
         self.label = group.label.replacingOccurrences(of: "\0", with: "")
         self.updatedAt = group.updatedAt

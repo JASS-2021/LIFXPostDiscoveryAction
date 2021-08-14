@@ -21,7 +21,7 @@ public struct CodableLocation: Codable {
         self.updatedAt = try values.decode(UInt64.self, forKey: .updatedAt)
     }
     
-    init(from location: Device.Location) {
+    public init(from location: Device.Location) {
         self.id = location.description.replacingOccurrences(of: "\0", with: "")
         self.label = location.label.replacingOccurrences(of: "\0", with: "")
         self.updatedAt = location.updatedAt

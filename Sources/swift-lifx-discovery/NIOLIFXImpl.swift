@@ -3,6 +3,7 @@ import ArgumentParser
 import Logging
 import NIOLIFX
 import NIO
+import LifxDiscoveryCommon
 
 @main
 struct NIOLIFXImpl: ParsableCommand {
@@ -17,7 +18,6 @@ struct NIOLIFXImpl: ParsableCommand {
 
     /// Runs the `NIOLIFX` device discovery and persists found devices.
     func run() throws {
-        print(filePath)
         let logger = Logger(label: "swift.nio.lifx")
         let fileUrl = URL(fileURLWithPath: filePath)
         let networkInterface = try findNetworkInterfaces()

@@ -5,12 +5,13 @@ import PackageDescription
 
 let package = Package(
     name: "swift-nio-lifx-impl",
-    platforms: [.macOS(.v10_15)],
+    platforms: [.macOS(.v11)],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .executable(
             name: "swift-lifx-discovery",
-            targets: ["swift-lifx-discovery"])
+            targets: ["swift-lifx-discovery"]),
+        .library(name: "LifxDiscoveryActions", targets: ["LifxDiscoveryActions"])
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -27,7 +28,22 @@ let package = Package(
             dependencies: [
                 .product(name: "NIOLIFX", package: "swift-nio-lifx"),
                 .product(name: "Logging", package: "swift-log"),
-                .product(name: "ArgumentParser", package: "swift-argument-parser")
+                .product(name: "ArgumentParser", package: "swift-argument-parser"),
+                .target(name: "LifxDiscoveryCommon")
+            ]
+        ),
+        .target(
+            name: "LifxDiscoveryActions",
+            dependencies: [
+                .product(name: "SwiftDeviceDiscovery", package: "swift-device-discovery"),
+                .target(name: "LifxDiscoveryCommon")
+            ]
+        
+        ),
+        .target(
+            name: "LifxDiscoveryCommon",
+            dependencies: [
+                .product(name: "NIOLIFX", package: "swift-nio-lifx")
             ]
         )
     ]
