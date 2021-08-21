@@ -38,7 +38,6 @@ let package = Package(
                 .product(name: "SwiftDeviceDiscovery", package: "swift-device-discovery"),
                 .target(name: "LifxDiscoveryCommon")
             ]
-        
         ),
         .target(
             name: "LifxDiscoveryCommon",

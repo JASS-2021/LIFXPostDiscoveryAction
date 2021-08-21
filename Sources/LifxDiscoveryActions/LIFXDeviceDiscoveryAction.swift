@@ -12,6 +12,7 @@ import Logging
 import LifxDiscoveryCommon
 
 public extension ConfigurationProperty {
+    /// A `ConfigurationProperty` for the deployment directory.
     static var deploymentDirectory = ConfigurationProperty("key_deploymentDirectory")
 }
 
@@ -21,8 +22,6 @@ public struct LIFXDeviceDiscoveryAction: PostDiscoveryAction {
 
     @Configuration(.deploymentDirectory)
     public var deploymentDir: URL
-
-    public var logger: Logger = Logger(label: "de.swift-nio-lifx-impl.post-action")
     
     public static var identifier: ActionIdentifier {
         ActionIdentifier("LIFX")
@@ -43,7 +42,7 @@ public struct LIFXDeviceDiscoveryAction: PostDiscoveryAction {
 
     public func run(_ device: Device, on eventLoopGroup: EventLoopGroup, client: SSHClient?) throws -> EventLoopFuture<Int> {
         let eventLoop = eventLoopGroup.next()
-        let logger: Logger = Logger(label: "de.swift-nio-lifx-impl.post-action")
+        let logger = Logger(label: "de.swift-nio-lifx-impl.post-action")
         guard let sshClient = client else {
             return eventLoop.makeFailedFuture(
                 DiscoveryError(
@@ -101,7 +100,10 @@ public struct LIFXDeviceDiscoveryAction: PostDiscoveryAction {
 // MARK: - Util methods
 extension LIFXDeviceDiscoveryAction {
     func rsyncHostname(_ device: Device, path: String) -> String {
-        "\(device.username)@\(device.ipv4Address!):\(path)"
+        guard let ipAddress = device.ipv4Address else {
+            fatalError("Unable to find ip address for device \(device)")
+        }
+        "\(device.username)@\(ipAddress):\(path)"
     }
     
     func copyResources(origin: String, destination: String) throws {
