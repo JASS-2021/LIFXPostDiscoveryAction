@@ -21,7 +21,11 @@ public struct LIFXDeviceDiscoveryAction: PostDiscoveryAction {
     public var username: String
 
     @Configuration(.deploymentDirectory)
-    public var deploymentDir: URL
+    public var deploymentDirectory: String
+    
+    public var deploymentDir: URL {
+        URL(fileURLWithPath: deploymentDirectory)
+    }
     
     public static var identifier: ActionIdentifier {
         ActionIdentifier("LIFX")
@@ -103,7 +107,7 @@ extension LIFXDeviceDiscoveryAction {
         guard let ipAddress = device.ipv4Address else {
             fatalError("Unable to find ip address for device \(device)")
         }
-        "\(device.username)@\(ipAddress):\(path)"
+        return "\(device.username)@\(ipAddress):\(path)"
     }
     
     func copyResources(origin: String, destination: String) throws {
