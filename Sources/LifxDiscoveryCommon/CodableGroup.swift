@@ -14,10 +14,7 @@ public struct CodableGroup: Codable {
     
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        let ids = try values.decode([UInt8].self, forKey: .id)
-        self.id = ids.reduce(into: "", { result, value in
-            result.append(String(value))
-        })
+        self.id = try values.decode(String.self, forKey: .id)
         self.label = try values.decode(String.self, forKey: .label)
         self.updatedAt = try values.decode(UInt64.self, forKey: .updatedAt)
     }
