@@ -17,7 +17,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         .package(url: "https://github.com/apple/swift-log.git", from: "1.0.0"),
         .package(url: "https://github.com/apple/swift-argument-parser", from: "0.4.0"),
-        .package(name: "swift-nio-lifx", url: "https://github.com/PSchmiedmayer/Swift-NIO-LIFX.git", .branch("develop")),
+        .package(name: "swift-nio-lifx", url: "https://github.com/hendesi/Swift-NIO-LIFX.git", .branch("develop")),
         .package(name: "swift-device-discovery", url: "https://github.com/hendesi/SwiftDeviceDiscovery.git", .branch("master"))
     ],
     targets: [

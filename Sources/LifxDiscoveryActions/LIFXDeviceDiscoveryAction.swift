@@ -69,11 +69,8 @@ public struct LIFXDeviceDiscoveryAction: PostDiscoveryAction {
         try copyResources(origin: scriptFileUrl.path, destination: rsyncHostname(device, path: tmpLifxDir.path))
 
         logger.info("executing script")
-        try runOnRemote(
-            args: ["bash \(tmpLifxDir.appendingPathComponent(setupScriptFilename)) \(tmpLifxDir.path)"],
-            workingDirectory: tmpLifxDir,
-            remoteDevice: device
-        )
+        print("cd \(tmpLifxDir.path) && bash \(tmpLifxDir.appendingPathComponent(setupScriptFilename)) \(tmpLifxDir.path)")
+        sshClient.executeWithAssertion(cmd: "cd \(tmpLifxDir.path) && bash \(tmpLifxDir.appendingPathComponent(setupScriptFilename).path) \(tmpLifxDir.path)")
 
         logger.info("copying json back")
         let remoteResultsPath = tmpLifxDir.appendingPathComponent(resultsFilename)
