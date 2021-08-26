@@ -25,7 +25,7 @@ echo "Searching for Swift-NIO-LIFX-Impl directory. This might take a while."
 # Searchs recursively the root directory for the repository and saves the first entry if it finds any
 DIR=$(find / -type d -name "Swift-NIO-LIFX-Impl" 2>/dev/null | head -n 1)
 
-if [$DIR == ""]
+if [$DIR == ""] || [$DIR == "*.build*"]
 then
     # If there is no repo present, clone it from remote.
     echo "Nothing found"
