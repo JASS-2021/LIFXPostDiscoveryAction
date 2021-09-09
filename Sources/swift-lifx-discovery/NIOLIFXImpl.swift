@@ -15,6 +15,9 @@ struct NIOLIFXImpl: ParsableCommand {
     
     @Option(help: "On this network interface the discovery is run.")
     var networkInterface: String = "wlan0"
+    
+    @Flag(help: "Write only the number of found devices to disk")
+    var numberOnly = false
 
     /// Runs the `NIOLIFX` device discovery and persists found devices.
     func run() throws {
@@ -30,7 +33,12 @@ struct NIOLIFXImpl: ParsableCommand {
             try CodableDevice($0)
         }
         let fileLocation = fileUrl.appendingPathComponent(fileName)
-        let data = try JSONEncoder().encode(codableDevices)
+        let data: Data
+        if numberOnly {
+            data = try JSONEncoder().encode(codableDevices)
+        } else {
+            data = try JSONEncoder().encode(codableDevices.count)
+        }
         try data.write(to: fileLocation)
         logger.info("Wrote results to file: \(fileLocation.path)")
     }
