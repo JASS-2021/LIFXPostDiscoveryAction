@@ -24,11 +24,9 @@ RUN swift build -c debug
 
 WORKDIR /staging
 
-RUN cp "$(swift build -c debug --package-path /build --show-bin-path)/TestWebService" ./
+RUN cp "$(swift build -c debug --package-path /build --show-bin-path)/swift-lifx-discovery" ./
 
-# FROM hendesi/master-thesis:offical-swift-arm
 FROM ghcr.io/apodini/swift@sha256:53b4295f95dc1eafcbc2e03c5dee41839e9652ca31397b9feb4d8903fe1b54ea as run
-# FROM swiftlang/swift:nightly-focal
 
 # Make sure all system packages are up to date.
 RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
@@ -36,13 +34,13 @@ RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
     && apt-get -q dist-upgrade -y \
     && rm -r /var/lib/apt/lists/*
 
-# Create a apodini user and group with /app as its home directory
-RUN useradd --user-group --create-home --system --skel /dev/null --home-dir /app apodini
+# Create a lifx user and group with /app as its home directory
+RUN useradd --user-group --create-home --system --skel /dev/null --home-dir /app lifx
 
 WORKDIR /app
 
-COPY --from=build --chown=apodini:apodini /staging /app
+COPY --from=build --chown=lifx:lifx /staging /app
 
-USER apodini:apodini
+USER lifx:lifx
 
-ENTRYPOINT ["./TestWebService"]
+ENTRYPOINT ["./swift-lifx-discovery"]
