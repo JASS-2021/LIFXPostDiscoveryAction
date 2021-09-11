@@ -35,9 +35,9 @@ struct NIOLIFXImpl: ParsableCommand {
         let fileLocation = fileUrl.appendingPathComponent(fileName)
         let data: Data
         if numberOnly {
-            data = try JSONEncoder().encode(codableDevices)
-        } else {
             data = try JSONEncoder().encode(codableDevices.count)
+        } else {
+            data = try JSONEncoder().encode(codableDevices)
         }
         try data.write(to: fileLocation)
         logger.info("Wrote results to file: \(fileLocation.path)")
