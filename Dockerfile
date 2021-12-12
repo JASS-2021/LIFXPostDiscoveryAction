@@ -8,10 +8,12 @@
 # SPDX-License-Identifier: MIT
 #
 
+ARG baseimage=swift:focal
+
 # ================================
 # Build image
 # ================================
-FROM swiftarm/swift:5.5.1-ubuntu-focal as build
+FROM ${baseimage} as build
 
 # Install OS updates and, if needed, sqlite3
 RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
@@ -27,16 +29,16 @@ WORKDIR /build
 COPY . .
 
 # Build everything, with optimizations and test discovery and
-RUN swift build -c debug
+RUN swift build
 
 WORKDIR /staging
 
-RUN cp "$(swift build -c debug --package-path /build --show-bin-path)/swift-lifx-discovery" ./
+RUN cp "$(swift build --package-path /build --show-bin-path)/swift-lifx-discovery" ./
 
 # ================================
 # Run image
 # ================================
-FROM swiftarm/swift:5.5.1-ubuntu-focal as run
+FROM ${baseimage}-slim as run
 
 # Make sure all system packages are up to date.
 RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
