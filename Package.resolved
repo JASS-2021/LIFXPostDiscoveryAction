@@ -57,11 +57,11 @@
       },
       {
         "package": "swift-nio-lifx",
-        "repositoryURL": "https://github.com/hendesi/Swift-NIO-LIFX.git",
+        "repositoryURL": "https://github.com/PSchmiedmayer/Swift-NIO-LIFX.git",
         "state": {
-          "branch": "develop",
-          "revision": "f3413228cf7fd1236fc60c206a949a48bb4c652b",
-          "version": null
+          "branch": null,
+          "revision": "05e810b45c02b99c16fad68ce18239b7fe51b9b7",
+          "version": "0.1.2"
         }
       },
       {
@@ -77,9 +77,9 @@
         "package": "swift-device-discovery",
         "repositoryURL": "https://github.com/Apodini/SwiftDeviceDiscovery.git",
         "state": {
-          "branch": "master",
-          "revision": "92913f30a7b5c0aa65dbe248787803ab045f22be",
-          "version": null
+          "branch": null,
+          "revision": "928bb257de241dae8fe1166e6901166577b0c4e4",
+          "version": "0.1.1"
         }
       }
     ]

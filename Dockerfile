@@ -1,10 +1,17 @@
 # syntax=docker/dockerfile:1
+
+#
+# This source file is part of the Apodini Template open source project
+#
+# SPDX-FileCopyrightText: 2021 Paul Schmiedmayer and the project authors (see CONTRIBUTORS.md) <paul.schmiedmayer@tum.de>
+#
+# SPDX-License-Identifier: MIT
+#
+
 # ================================
 # Build image
 # ================================
-# FROM hendesi/master-thesis:offical-swift-arm as build
-# FROM swiftlang/swift:nightly-focal as build
-FROM ghcr.io/apodini/swift@sha256:53b4295f95dc1eafcbc2e03c5dee41839e9652ca31397b9feb4d8903fe1b54ea as build
+FROM swiftarm/swift:5.5.1-ubuntu-focal as build
 
 # Install OS updates and, if needed, sqlite3
 RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
@@ -26,7 +33,10 @@ WORKDIR /staging
 
 RUN cp "$(swift build -c debug --package-path /build --show-bin-path)/swift-lifx-discovery" ./
 
-FROM ghcr.io/apodini/swift@sha256:53b4295f95dc1eafcbc2e03c5dee41839e9652ca31397b9feb4d8903fe1b54ea as run
+# ================================
+# Run image
+# ================================
+FROM swiftarm/swift:5.5.1-ubuntu-focal as run
 
 # Make sure all system packages are up to date.
 RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
