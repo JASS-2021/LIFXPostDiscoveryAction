@@ -46,6 +46,9 @@ let package = Package(
             dependencies: [
                 .product(name: "SwiftDeviceDiscovery", package: "swift-device-discovery"),
                 .target(name: "LifxDiscoveryCommon")
+            ],
+            resources: [
+                .copy("Resources/setup-script")
             ]
         ),
         .target(
