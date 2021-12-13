@@ -47,7 +47,7 @@ jobs:
           file: ./Dockerfile
           push: true
           platforms: linux/arm64
-          tags: ghcr.io/jass-2021/swift-nio-lifx-impl:latest
+          tags: ghcr.io/jass-2021/lifx-post-discovery-action:latest
       - name: Image digest
         run: echo ${{ steps.buildandpush.outputs.digest }}
 #  dockermanifest:
