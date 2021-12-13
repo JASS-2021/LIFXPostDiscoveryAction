@@ -1,9 +1,9 @@
 // swift-tools-version:5.5
 
 //
-// This source file is part of the Apodini Template open source project
+// This source file is part of the JASS open source project
 //
-// SPDX-FileCopyrightText: 2021 Paul Schmiedmayer and the project authors (see CONTRIBUTORS.md) <paul.schmiedmayer@tum.de>
+// SPDX-FileCopyrightText: 2019-2021 Paul Schmiedmayer and the JASS project authors (see CONTRIBUTORS.md) <paul.schmiedmayer@tum.de>
 //
 // SPDX-License-Identifier: MIT
 //
@@ -11,7 +11,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "swift-nio-lifx-impl",
+    name: "lifx-post-discovery-action",
     platforms: [
         .macOS(.v12)
     ],

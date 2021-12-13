@@ -1,12 +1,10 @@
-#                   
-# This source file is part of the Apodini Template open source project
+#
+# This source file is part of the Jass open source project
 #
 # SPDX-FileCopyrightText: 2019-2021 Paul Schmiedmayer and the project authors (see CONTRIBUTORS.md) <paul.schmiedmayer@tum.de>
 #
 # SPDX-License-Identifier: MIT
 #
-
-# SwiftLint file for projects of the Apodini Organization
   
 # The whitelist_rules configuration also includes rules that are enabled by default to provide a good overview of all rules.
 only_rules:
