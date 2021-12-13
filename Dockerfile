@@ -8,12 +8,12 @@
 # SPDX-License-Identifier: MIT
 #
 
-ARG baseimage=swift:focal
+# ARG baseimage=swiftlang/swift:nightly-focal
 
 # ================================
 # Build image
 # ================================
-FROM ${baseimage} as build
+FROM swiftlang/swift:nightly-focal as build
 
 # Install OS updates and, if needed, sqlite3
 RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
@@ -38,7 +38,7 @@ RUN cp "$(swift build --package-path /build --show-bin-path)/swift-lifx-discover
 # ================================
 # Run image
 # ================================
-FROM ${baseimage}-slim as run
+FROM swiftlang/swift:nightly-focal as run
 
 # Make sure all system packages are up to date.
 RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
