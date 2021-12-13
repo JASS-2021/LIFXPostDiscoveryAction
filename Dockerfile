@@ -29,11 +29,11 @@ WORKDIR /build
 COPY . .
 
 # Build everything, with optimizations and test discovery and
-RUN swift build
+RUN swift build -c release
 
 WORKDIR /staging
 
-RUN cp "$(swift build --package-path /build --show-bin-path)/swift-lifx-discovery" ./
+RUN cp "$(swift build -c release --package-path /build --show-bin-path)/swift-lifx-discovery" ./
 
 # ================================
 # Run image
