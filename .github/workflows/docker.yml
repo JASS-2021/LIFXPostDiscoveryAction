@@ -40,7 +40,7 @@ jobs:
           build-args: |
             baseimage=swiftarm/swift:5.5.1-ubuntu-focal
           push: true
-          tags: ghcr.io/jass-2021/jass2021-webservice:latest-arm64,ghcr.io/jass-2021/jass2021-webservice:${{ steps.latesttag.outputs.tag }}-arm64
+          tags: ghcr.io/jass-2021/lifx-post-discovery-action:latest-arm64,ghcr.io/jass-2021/lifx-post-discovery-action:${{ steps.latesttag.outputs.tag }}-arm64
   dockerAMD64:
     name: Docker Build and Push Image AMD64
     runs-on: ubuntu-latest
@@ -67,7 +67,7 @@ jobs:
           build-args: |
             baseimage=swift:focal
           push: true
-          tags: ghcr.io/jass-2021/jass2021-webservice:latest-amd64,ghcr.io/jass-2021/jass2021-webservice:${{ steps.latesttag.outputs.tag }}-amd64
+          tags: ghcr.io/jass-2021/lifx-post-discovery-action:latest-amd64,ghcr.io/jass-2021/lifx-post-discovery-action:${{ steps.latesttag.outputs.tag }}-amd64
   dockermanifest:
     needs: [dockerARM64, dockerAMD64]
     name: Create Multi-CPU Architecture Image
@@ -88,11 +88,11 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Create and Push Multi Architecture Image
         run: |
-            docker manifest create ghcr.io/jass-2021/jass2021-webservice:latest \
-              --amend ghcr.io/jass-2021/jass2021-webservice:latest-amd64 \
-              --amend ghcr.io/jass-2021/jass2021-webservice:latest-arm64
-            docker manifest create ghcr.io/jass-2021/jass2021-webservice:${{ steps.latesttag.outputs.tag }} \
-              --amend ghcr.io/jass-2021/jass2021-webservice:${{ steps.latesttag.outputs.tag }}-amd64 \
-              --amend ghcr.io/jass-2021/jass2021-webservice:${{ steps.latesttag.outputs.tag }}-arm64
-            docker manifest push ghcr.io/jass-2021/jass2021-webservice:latest
-            docker manifest push ghcr.io/jass-2021/jass2021-webservice:${{ steps.latesttag.outputs.tag }}
+            docker manifest create ghcr.io/jass-2021/lifx-post-discovery-action:latest \
+              --amend ghcr.io/jass-2021/lifx-post-discovery-action:latest-amd64 \
+              --amend ghcr.io/jass-2021/lifx-post-discovery-action:latest-arm64
+            docker manifest create ghcr.io/jass-2021/lifx-post-discovery-action:${{ steps.latesttag.outputs.tag }} \
+              --amend ghcr.io/jass-2021/lifx-post-discovery-action:${{ steps.latesttag.outputs.tag }}-amd64 \
+              --amend ghcr.io/jass-2021/lifx-post-discovery-action:${{ steps.latesttag.outputs.tag }}-arm64
+            docker manifest push ghcr.io/jass-2021/lifx-post-discovery-action:latest
+            docker manifest push ghcr.io/jass-2021/lifx-post-discovery-action:${{ steps.latesttag.outputs.tag }}
