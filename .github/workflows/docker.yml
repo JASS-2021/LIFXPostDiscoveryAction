@@ -15,84 +15,84 @@ on:
 
 jobs:
   dockerARM64:
-   name: Docker Build and Push Image ARM64
-   runs-on: ARM64
-   steps:
-     - name: Checkout repository
-       uses: actions/checkout@v2
-     - name: Get latest tag
-       id: latesttag
-       uses: WyriHaximus/github-action-get-previous-tag@v1
-       with:
-         fallback: latest
-     - name: Log in to the container registry
-       uses: docker/login-action@v1
-       with:
-         registry: ghcr.io
-         username: ${{ github.actor }}
-         password: ${{ secrets.GITHUB_TOKEN }}
-     - name: Build and push docker image
-       id: buildandpush
-       uses: docker/build-push-action@v2
-       with:
-         context: .
-         file: ./Dockerfile
-         build-args: |
-           baseimage=swiftarm/swift:5.5.1-ubuntu-focal
-         push: true
-         tags: ghcr.io/jass-2021/lifx-post-discovery-action:latest-arm64,ghcr.io/jass-2021/lifx-post-discovery-action:${{ steps.latesttag.outputs.tag }}-arm64
- dockerAMD64:
-   name: Docker Build and Push Image AMD64
-   runs-on: ubuntu-latest
-   steps:
-     - name: Checkout repository
-       uses: actions/checkout@v2
-     - name: Get latest tag
-       id: latesttag
-       uses: WyriHaximus/github-action-get-previous-tag@v1
-       with:
-         fallback: latest
-     - name: Log in to the container registry
-       uses: docker/login-action@v1
-       with:
-         registry: ghcr.io
-         username: ${{ github.actor }}
-         password: ${{ secrets.GITHUB_TOKEN }}
-     - name: Build and push docker image
-       id: buildandpush
-       uses: docker/build-push-action@v2
-       with:
-         context: .
-         file: ./Dockerfile
-         build-args: |
-           baseimage=swift:focal
-         push: true
-         tags: ghcr.io/jass-2021/lifx-post-discovery-action:latest-amd64,ghcr.io/jass-2021/lifx-post-discovery-action:${{ steps.latesttag.outputs.tag }}-amd64
- dockermanifest:
-   needs: [dockerARM64, dockerAMD64]
-   name: Create Multi-CPU Architecture Image
-   runs-on: ubuntu-latest
-   steps:
-     - name: Checkout repository
-       uses: actions/checkout@v2
-     - name: Get latest tag
-       id: latesttag
-       uses: WyriHaximus/github-action-get-previous-tag@v1
-       with:
-         fallback: latest
-     - name: Log in to the container registry
-       uses: docker/login-action@v1
-       with:
-         registry: ghcr.io
-         username: ${{ github.actor }}
-         password: ${{ secrets.GITHUB_TOKEN }}
-     - name: Create and Push Multi Architecture Image
-       run: |
-           docker manifest create ghcr.io/jass-2021/lifx-post-discovery-action:latest \
-             --amend ghcr.io/jass-2021/lifx-post-discovery-action:latest-amd64 \
-             --amend ghcr.io/jass-2021/lifx-post-discovery-action:latest-arm64
-           docker manifest create ghcr.io/jass-2021/lifx-post-discovery-action:${{ steps.latesttag.outputs.tag }} \
-             --amend ghcr.io/jass-2021/lifx-post-discovery-action:${{ steps.latesttag.outputs.tag }}-amd64 \
-             --amend ghcr.io/jass-2021/lifx-post-discovery-action:${{ steps.latesttag.outputs.tag }}-arm64
-           docker manifest push ghcr.io/jass-2021/lifx-post-discovery-action:latest
-           docker manifest push ghcr.io/jass-2021/lifx-post-discovery-action:${{ steps.latesttag.outputs.tag }}
+    name: Docker Build and Push Image ARM64
+    runs-on: ARM64
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Get latest tag
+        id: latesttag
+        uses: WyriHaximus/github-action-get-previous-tag@v1
+        with:
+          fallback: latest
+      - name: Log in to the container registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push docker image
+        id: buildandpush
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          build-args: |
+            baseimage=swiftarm/swift:5.5.1-ubuntu-focal
+          push: true
+          tags: ghcr.io/jass-2021/jass2021-webservice:latest-arm64,ghcr.io/jass-2021/jass2021-webservice:${{ steps.latesttag.outputs.tag }}-arm64
+  dockerAMD64:
+    name: Docker Build and Push Image AMD64
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Get latest tag
+        id: latesttag
+        uses: WyriHaximus/github-action-get-previous-tag@v1
+        with:
+          fallback: latest
+      - name: Log in to the container registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push docker image
+        id: buildandpush
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          build-args: |
+            baseimage=swift:focal
+          push: true
+          tags: ghcr.io/jass-2021/jass2021-webservice:latest-amd64,ghcr.io/jass-2021/jass2021-webservice:${{ steps.latesttag.outputs.tag }}-amd64
+  dockermanifest:
+    needs: [dockerARM64, dockerAMD64]
+    name: Create Multi-CPU Architecture Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Get latest tag
+        id: latesttag
+        uses: WyriHaximus/github-action-get-previous-tag@v1
+        with:
+          fallback: latest
+      - name: Log in to the container registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create and Push Multi Architecture Image
+        run: |
+            docker manifest create ghcr.io/jass-2021/jass2021-webservice:latest \
+              --amend ghcr.io/jass-2021/jass2021-webservice:latest-amd64 \
+              --amend ghcr.io/jass-2021/jass2021-webservice:latest-arm64
+            docker manifest create ghcr.io/jass-2021/jass2021-webservice:${{ steps.latesttag.outputs.tag }} \
+              --amend ghcr.io/jass-2021/jass2021-webservice:${{ steps.latesttag.outputs.tag }}-amd64 \
+              --amend ghcr.io/jass-2021/jass2021-webservice:${{ steps.latesttag.outputs.tag }}-arm64
+            docker manifest push ghcr.io/jass-2021/jass2021-webservice:latest
+            docker manifest push ghcr.io/jass-2021/jass2021-webservice:${{ steps.latesttag.outputs.tag }}

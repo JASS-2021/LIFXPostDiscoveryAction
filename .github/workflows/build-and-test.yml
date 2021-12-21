@@ -38,12 +38,8 @@ jobs:
       run: xcodebuild -version
     - name: Check Swift version
       run: swift --version
-    - name: Release Build # Ensuring release build runs successfully without -enable-testing flag
-      if: matrix.configuration == 'release'
-      run: swift build -c release
-    - name: Debug Build
-      if: matrix.configuration == 'debug'
-      run: swift build -c debug
+    - name: Build ${{ matrix.configuration }}
+      run: swift build -c ${{ matrix.configuration }}
   linux:
     name: Linux ${{ matrix.linux }} ${{ matrix.configuration }}
     container:
@@ -74,9 +70,5 @@ jobs:
         key: ${{ runner.os }}-${{matrix.linux}}-${{matrix.configuration}}-spm-${{ hashFiles('Package.resolved') }}
     - name: Check Swift version
       run: swift --version
-    - name: Debug Build
-      if: matrix.configuration == 'debug'
-      run: swift build -c debug
-    - name: Release Build # Ensuring release build runs successfully without -enable-testing flag
-      if: matrix.configuration == 'release'
-      run: swift build -c release
+    - name: Build ${{ matrix.configuration }}
+      run: swift build -c ${{ matrix.configuration }}
