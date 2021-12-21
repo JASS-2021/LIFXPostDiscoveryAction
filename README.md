@@ -10,9 +10,11 @@ SPDX-License-Identifier: MIT
 
 # LIFXPostDiscoveryAction
 
+[![Build and Test](https://github.com/JASS-2021/LIFXPostDiscoveryAction/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/JASS-2021/LIFXPostDiscoveryAction/actions/workflows/build-and-test.yml)
+
 An implementation of [Swift-NIO-LIFX](https://github.com/PSchmiedmayer/Swift-NIO-LIFX) that persists the discovered devices in a JSON file to be used as a Post Discovery Action for the [Apodini IoT Deployment Provider](https://github.com/Apodini/ApodiniIoTDeploymentProvider).
 
-The Post Disovery Action automatically detects LIFX lamps and returns the number of LIFX lamps that can be found in the same network.
+The Post Discovery Action automatically detects LIFX lamps and returns the number of LIFX lamps that can be found in the same network.
 
 ## Contributing
 Contributions to this project are welcome. Please make sure to read the [contribution guidelines](https://github.com/Apodini/.github/blob/main/CONTRIBUTING.md) first.
