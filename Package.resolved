@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/apple/swift-crypto.git",
         "state": {
           "branch": null,
-          "revision": "bd5abc2a123349b08a345d7d375db2a5d845ed35",
-          "version": "2.0.2"
+          "revision": "9c53b7a758bb849a7df1bd2314395f5f0c14306f",
+          "version": "2.0.3"
         }
       },
       {
@@ -42,8 +42,8 @@
         "repositoryURL": "https://github.com/apple/swift-nio.git",
         "state": {
           "branch": null,
-          "revision": "37e7a33de45bac894c0b08b56a2f755ebe4884e6",
-          "version": "2.35.0"
+          "revision": "213eb6887e526e0dfac526a2eae559a1893ebbac",
+          "version": "2.36.0"
         }
       },
       {
@@ -78,8 +78,8 @@
         "repositoryURL": "https://github.com/Apodini/SwiftDeviceDiscovery.git",
         "state": {
           "branch": null,
-          "revision": "5604a39994016fa305f9cfbce202392c59b83140",
-          "version": "0.1.2"
+          "revision": "76e3fdb5723e227d9fb8d631a9626d369850272c",
+          "version": "0.1.3"
         }
       }
     ]
